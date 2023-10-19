@@ -68,23 +68,25 @@
     {% endif %}
     <form method="post">
       {% csrf_token %} 
-      
       <div class="row mb-3">
         <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Username</label>
-          
+          <label class="col-sm-4 col-form-label offset-4" >Username</label>
+          <!-- {form.as_p} -->
           <div class="col-sm-4 offset-4 w-25">
-            <input type="text" for="{{ form.username.label_tag }}"  class="form-control form-control-lg">
-            {{ form.username }}
+             {{form.as_p}}
+            <!-- <input type="text" {{ form.username}}   class="form-control form-control-lg"> -->
+            
           </div>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4" >Password</label>
+          <!-- {form.as_p} -->
           <div class="col-sm-4 offset-4 w-25">
-            <input type="text" for="{{ form.password.label_tag }}"  class="form-control form-control-lg">
-            {{ form.password }} 
+            {{ form.password}}
+            <!-- <input type="text"  {{ form.password}}    class="form-control form-control-lg"> -->
+            
           </div>
         </div>
       </div>

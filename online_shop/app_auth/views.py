@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from .forms import  RegisterForm
+from .forms import  RegisterForm,UserLoginForm
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 # Создаем отображение пользователя
@@ -16,21 +17,14 @@ def login_view(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             return redirect(redirect_url)
-    else:
-        return render(request,'app_auth/login.html')
-    if 'username' in request.POST and 'password' in request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-    else:
-        return render(request, 'app_auth/login.html', {
-                'error_message': 'Please enter your username and password.'
-                })
-    # проверка, что комбинация логина и пароля нашлась
+        else:
+            return render(request,'app_auth/login.html')
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request,username,password)
     if user is not None:
-        login(request, user)
-        return HttpResponseRedirect(redirect_url)
-    # если не нашлась - пользователь не найден
+        login(request,user)
+        return redirect(redirect_url)
     return render(request,'app_auth/login.html',{'error':'Пользователь не найден'})
 # Создаем регистрацию пользователя
 def register_view(request): 
