@@ -56,13 +56,17 @@
       </div>
     </div>
   </div>
-    <form method="post" action=".">   
-      {% csrf_token %} 
+  {% if form.errors %}
+      <div class="form-label  bg-warning">{{form.errors}}</div>
+      {% endif %}
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}   
       <div class="row mb-3">
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4">Username</label>
           <div class="col-sm-4 offset-4 w-25">
             {{form.username}}
+            
             <!-- <input type="text"   class="form-control form-control-lg">  -->
             
           </div>
@@ -72,7 +76,8 @@
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4">Name</label>
           <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+            {{form.first_name}}
           </div>
         </div>
       </div>
@@ -80,7 +85,8 @@
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4">Surname</label>
           <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+            {{form.last_name}}
           </div>
         </div>
       </div>
@@ -89,6 +95,7 @@
           <label class="col-sm-4 col-form-label offset-4">Password</label>
           <div class="col-sm-4 offset-4 w-25">
             {{form.password1}}
+         
             <!-- <input type="password" class="form-control form-control-lg"> -->
           </div>
         </div>
@@ -99,7 +106,6 @@
           <div class="col-sm-4 offset-4 w-25">
             {{form.password2}}
             <!-- <input type="password" class="form-control form-control-lg"> -->
-            <div class="form-label bg-warning" style="margin: 10px 0px;">{{ form.errors.password2|striptags }}</div>
           </div>
         </div>
       </div>

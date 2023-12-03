@@ -51,50 +51,49 @@
     </li>
   </ul> 
   {% endif %}
-
   <div class="container">
-  <div class="row">
-    <div class="col-8" style="margin: 50px;">
-      <div class="display-2">
-        <span class="badge bg-primary">Страница авторизации пользователя</span>
+    <div class="row">
+      <div class="col-8" style="margin: 50px;">
+        <div class="display-2">
+          <span class="badge bg-primary">Страница авторизации пользователя</span>
+        </div>
       </div>
     </div>
-  </div>
-    <div class="container">
-      {% if error %}
-      <div class="col-sm-4 offset-4 w-25"></div>
-        <div class="form-label bg-warning" style="margin: 10px 0px ;">{error}</div>
-    </div>
+    
+    
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% if messages %}
+        {% for message in messages %}
+            <div class="form-label  bg-warning" >{{ message }}</div>
+        {% endfor %}
     {% endif %}
-    <form method="post">
-      {% csrf_token %} 
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4" >Username</label>
-          <!-- {form.as_p} -->
-          <div class="col-sm-4 offset-4 w-25">
-             {{form.as_p}}
-            <!-- <input type="text" {{ form.username}}   class="form-control form-control-lg"> -->
-            
+  
+        <div class="row mb-3">
+          <div class="col">
+            <label class="col-sm-4 col-form-label offset-4" for="{{ form.username.id_for_label }}">Username</label>
+            <div class="col-sm-4 offset-4 w-25">
+              {{ form.username }}
+              <!-- <input type="text" class="form-control form-control-lg"> -->
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4" >Password</label>
-          <!-- {form.as_p} -->
-          <div class="col-sm-4 offset-4 w-25">
-            {{ form.password}}
-            <!-- <input type="text"  {{ form.password}}    class="form-control form-control-lg"> -->
-            
+        <div class="row mb-3">
+          <div class="col">
+            <label class="col-sm-4 col-form-label offset-4" for="{{ form.password.id_for_label }}">Password</label>
+            <div class="col-sm-4 offset-4 w-25">
+              {{ form.password }}
+              <!-- <input type="password" class="form-control form-control-lg"> -->
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row mb-3 offset-sm-5">
-        <div class="col">
-          <button type="submit" class="btn btn-success">Принять</button>
+        <div class="row mb-3 offset-sm-5">
+          <div class="col">
+            <button type="submit" class="btn btn-success">Принять</button>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
+    
+      
   {% endblock %}
