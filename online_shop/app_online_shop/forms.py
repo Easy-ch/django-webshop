@@ -14,8 +14,9 @@ class Advertisementform(ModelForm):
             'auction': forms.CheckboxInput(attrs={'class': 'form-input'}),
             'image': forms.FileInput(attrs={'class': 'form-input'}),
     }
+######################################################### исправить #####################################################
     def clean_title(self):
-        title = self. title = self.cleaned_data['title']
+        title = self.title = self.cleaned_data['title']
         if title == '?':
             raise ValidationError('Заголовок не может начинаться с вопросительного знака')
  

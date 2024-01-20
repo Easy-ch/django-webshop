@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from .models import OnlineShop
 from .forms import Advertisementform
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
-
+from app_auth.models import User
+from django.views.generic import DetailView
 # Create your views here.
 def index(request):
     title = request.GET.get('query')
@@ -37,6 +38,15 @@ def login(request):
     return render(request,'app_auth/login.html')
 def profile(request):
     return render(request,'app_auth/profile.html')
-
+# class AdvertisementView(DetailView):
+#     model = User
+#     template_name = 'app_advertisement/advertisement.html'
+#     context_object_name = 'user'
+#      # получаем объект пользователя по его имени
+#     def get_object(self):
+#         return get_object_or_404(User, username=self.kwargs['username'])
+def profileview (request,username):
+    user = get_object_or_404(User,username=username)
+    return render(request,'app_advertisement/advertisement.html',{'user':user})
 
 

@@ -5,6 +5,7 @@ from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 # Create your views here.
 
 # Создаем отображение пользователя
@@ -19,6 +20,7 @@ def profile_view(request):
         else:
             form=ProfileForm(instance=request.user)
         return render(request,'app_auth/profile.html',{'form':form})
+
 # Создаем авторизацию пользователя
 def login_view(request):
     redirect_url = reverse('profile')
