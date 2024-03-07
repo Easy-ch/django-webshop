@@ -59,9 +59,52 @@
   </div>
   <div class="container">
     <form method="post" enctype="multipart/form-data"> {% csrf_token %}
-        <div class="row mb-3"> 
-          {{form.as_p}}  
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Заголовок</label>
+          <div class="col-sm-4 offset-4 w-25">
+          {{form.title}}
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+          </div>
         </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Описание</label>
+          <div class="col-sm-4 offset-4 w-25">
+            {{form.description}}
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Цена</label>
+          <div class="col-sm-4 offset-4 w-25">
+            {{form.price}}
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Торг</label>
+          <div class="col-sm-4 offset-4 w-25"> 
+            {{form.auction}}
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Картинка</label>
+          <div class="col-sm-4 offset-4 w-25">
+            {{form.image}}
+            <!-- <input type="text" class="form-control form-control-lg"> -->
+          </div>
+        </div>
+      </div>
+
       <div class="row mb-3 offset-sm-5">
         <div class="col">
           <button type="submit" class="btn btn-success">Принять</button>

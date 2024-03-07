@@ -112,7 +112,7 @@
               <p class="card-text">
                 {{adv.description}}
               </p>
-              <a href="{%  url 'advertisement' adv.user.username  %}" >Автор: {{adv.user}}</a>
+              <a href="{%  url 'advertisement' adv.user.username  %}" >Автор: {{adv.user.username}}</a>
               <p class="card-text"><small class="text-muted">Размещено: {{adv.created_time}}</small></p>
               <span>{{adv.price}}</span>
             </a>

@@ -71,10 +71,11 @@
   
         <div class="row mb-3">
           <div class="col">
-            <label class="col-sm-4 col-form-label offset-4" for="{{ form.username.id_for_label }}">Username</label>
+            <label class="col-sm-4 col-form-label offset-4">Email</label>
             <div class="col-sm-4 offset-4 w-25">
               {{ form.username }}
               <!-- <input type="text" class="form-control form-control-lg"> -->
+              <!-- for="{{ form.email.id_for_label }}" -->
             </div>
           </div>
         </div>
@@ -87,12 +88,21 @@
             </div>
           </div>
         </div>
+        <div class="row mb-3">
+          <div class="col">
+              <div class="offset-4 w-25">
+                  {{form.captcha}}
+              </div>
+          </div>
+      </div>
+
         <div class="row mb-3 offset-sm-5">
           <div class="col">
             <button type="submit" class="btn btn-success">Принять</button>
           </div>
         </div>
       </form>
+
     </div>
     
       

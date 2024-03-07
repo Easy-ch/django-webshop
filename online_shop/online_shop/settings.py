@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_online_shop',
-    'app_auth'
+    'app_auth',
+    'six',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -134,8 +136,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = Path.joinpath(BASE_DIR,'media/')
 MEDIA_URL = 'media/'
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+    'app_auth.backends.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = "app_auth.User"
+EMAIL_USE_TLS = True 
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'marketplaceariv@gmail.com' 
+EMAIL_HOST_PASSWORD = 'sjwp ksik wrqq zfzz' 
+EMAIL_PORT = 587 
+RECAPTCHA_PRIVATE_KEY = '6Ldram0pAAAAAFOopOMdh0oKEh9TmJ6VrCESPFhH'
+RECAPTCHA_PUBLIC_KEY = '6LdAnG0pAAAAAJqfbxaAzQr_5ysPjgKX4zC9W-lB'
