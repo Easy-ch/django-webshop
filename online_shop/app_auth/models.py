@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
+# Создание модели пользователя
 class User(AbstractUser):
     image = ProcessedImageField(upload_to='auth/', processors=[ResizeToFill(200, 200)],format='JPEG',options={'quality': 60},default=None)
     is_verified_email = models.BooleanField(default=False, null=False, blank=False)

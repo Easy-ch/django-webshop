@@ -9,6 +9,3 @@ urlpatterns=[
     path('profile/',profile, name='profile'),
     path(r"^advertisement/(?P<username>[\w-]+)/$",profileview,name='advertisement'),
 ]
-    
-# AdvertisementView
-#    path('advertisement/<str:username>/',AdvertisementView.as_view(),name='advertisement'),

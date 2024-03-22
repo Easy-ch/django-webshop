@@ -1,6 +1,7 @@
 from django.conf import settings
 import requests
 from django.http import HttpResponse 
+# Работа с API recapcha
 def check_recaptcha(function):
     def wrap(request,*args,**kwargs):
         request.recaptcha_is_valid = None

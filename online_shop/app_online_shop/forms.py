@@ -20,8 +20,8 @@ class Advertisementform(ModelForm):
         super(Advertisementform, self).__init__(*args, **kwargs)
          # Сохраняем user_id внутри экземпляра формы
         self.user_id = user_id
+#  Валидация файла, полученного от пользователя
     def clean_image(self):
-        print('ЭММММММММ')
         image = self.cleaned_data.get('image')
         if image:
             if image.size > settings.MAX_IMAGE_UPLOAD_SIZE:

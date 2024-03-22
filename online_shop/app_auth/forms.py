@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserCh
 from django_recaptcha.fields import ReCaptchaField,ReCaptchaV2Checkbox
 from django.conf import settings
 # main code: 
+# Создаем поля формы аутентификации:
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={
         "type":'username','class': 'form-control form-control-lg', 'placeholder': 'Введите ваш email '}))
@@ -13,7 +14,7 @@ class EmailAuthenticationForm(AuthenticationForm):
         "type":'password','class': 'form-control form-control-lg', 'placeholder': 'Введите пароль'}))
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
-
+# Создаем поля формы регистрации:
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control form-control-lg'} ))
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control form-control-lg'} ))
@@ -25,6 +26,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
        model = User
        fields  = ['email','username','first_name','last_name','password1','password2','recaptcha']
+# Кастомная валидация кажого поля формы:
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password1'] != cd['password2']:
@@ -47,6 +49,7 @@ class RegisterForm(UserCreationForm):
         if name == surname:
             raise forms.ValidationError("Имя и фамилия не могут быть одинаковыми.")
         return surname
+# Создаем поля формы профиля:
 class ProfileForm(UserChangeForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control form-control-lg','readonly':True}, ))
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4','readonly':True}))
@@ -56,7 +59,7 @@ class ProfileForm(UserChangeForm):
     class Meta:
      model = User
      fields = ['email','username','first_name','last_name','image']  
-# Add custom username validation if needed
+#Кастомная валидация полей формы
     def clean_username(self):
          return self.cleaned_data['username']
     def clean_image(self):
@@ -77,12 +80,13 @@ class ProfileForm(UserChangeForm):
             if commit:
                 user.save()
             return user
+# создаем поле для ввода почты при смене пароля:
 class PasswordResetFormCustom(PasswordResetForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control form-control-lg','placeholder': 'Введите логин '} ))
     class Meta:
         model = User
         fields = ['email']
-
+# создаем поле для ввода нового пароля
 class CustomChangePasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg' }))
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg' }))
@@ -90,11 +94,12 @@ class CustomChangePasswordForm(SetPasswordForm):
     class Meta:
         model = User
         fields = ['new_password1','new_password2']  
+
     def __init__(self,*args,**kwargs):
         email = kwargs.pop('email',None)
         super().__init__(None,*args, **kwargs)
         self.email = email
-
+# Проверка нового пароля на схожесть со старым
     def clean_new_password1(self):
         new_password1 =self.cleaned_data.get("new_password1")
         email = self.email

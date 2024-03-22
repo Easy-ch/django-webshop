@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import OnlineShop
 from django.utils.safestring import mark_safe
 
-# Register your models here.
 class OnlineShopAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'description', 'price', 'created_time','update_time','auction','get_html_image']
     list_filter = ['auction', 'created_time']

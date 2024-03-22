@@ -1,5 +1,6 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator 
 from six import text_type
+# Генерация токена для уникальной ссылки при подтверждения по почте
 class TokenGenerator(PasswordResetTokenGenerator): 
     def _make_hash_value(self, user, timestamp): 
         return( 

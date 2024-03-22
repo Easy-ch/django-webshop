@@ -50,11 +50,9 @@ def login_view(request):
     else:
         form = EmailAuthenticationForm()
     return render(request, 'app_auth/login.html', {'form': form})
-    # and user.is_verified_email
 # Создаем регистрацию пользователя 
 def register_view(request):
     if request.method == 'POST':
-        # try:
             form = RegisterForm(request.POST)
             if form.is_valid(): 
                 user = form.save(commit=False)
@@ -77,12 +75,6 @@ def register_view(request):
                 return HttpResponse('Пожалуйста,подтвердите ваш адрес электронной почты! ')
             else:
                 return render(request, 'app_auth/register.html', {'form': form})
-            # else:
-            #     raise IntegrityError
-
-        # except forms.ValidationError as e:
-        #     messages.error(request,e)
-        #     messages.error(request, 'Пользователь с данным email уже зарегестрирован на сайте!')
     else:
         form = RegisterForm()
     return render(request, 'app_auth/register.html', {'form': form})
@@ -104,7 +96,7 @@ def activate(request, uidb64, token):
     
 def send_email(email):
     email.send()
-
+# Создание капчи
 def captcha_login(request):
     redirect_url = reverse('profile')
     if request.method == 'POST':
@@ -133,7 +125,7 @@ def recaptcha_register(request):
 def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
-
+# Логика по восстановлению пароля
 class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
     template_name = 'app_auth/password_reset.html'
     success_url = reverse_lazy('password_reset_done')

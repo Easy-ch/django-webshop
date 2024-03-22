@@ -4,7 +4,7 @@ from .forms import Advertisementform
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from app_auth.models import User
-# Create your views here.
+# Создание поиска по title
 def index(request):
     title = request.GET.get('query')
     if title:
@@ -35,6 +35,7 @@ def login(request):
     return render(request,'app_auth/login.html')
 def profile(request):
     return render(request,'app_auth/profile.html')
+# Создание перехода на пользователя, создавшего объявление
 def profileview (request,username):
     user = get_object_or_404(User,username=username)
     return render(request,'app_advertisement/advertisement.html',{'user':user})
