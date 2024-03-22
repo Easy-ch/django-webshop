@@ -13,7 +13,7 @@ def user_created(sender, instance, created, **kwargs):
         my_thread.start()
 
 def delete_user(user_id):
-    time.sleep(50)
+    time.sleep(300)
     user = User.objects.get(id=user_id)
     if user.is_verified_email:
         print("Пользователь подтвердил свою почту. Удаление отменено.")

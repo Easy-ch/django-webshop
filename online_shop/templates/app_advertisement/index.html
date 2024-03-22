@@ -12,10 +12,7 @@
       <span style="font-weight: bold;">Главная</span>
     </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
-    </a>
-  </li>
+
     {% if user.is_authenticated %}
  
   <li class="nav-item">
@@ -100,9 +97,9 @@
   </div>
   {% for adv in online_shops %}
   <div class="col">
-    <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
+    <div class="card mb-2" style="max-width: 1200; margin-top: 20px;">
       <div class="row g-0">
-        <img src="{% if adv.image %} {{adv.image.url }} {% endif %}" alt="">
+        <img  src="{% if adv.image %} {{adv.image.url }} {% endif %}" width="1600" height="900">
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">

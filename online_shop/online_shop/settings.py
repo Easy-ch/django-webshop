@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'app_online_shop',
     'app_auth',
     'six',
-    'captcha',
+    'django_recaptcha',
+    'imagekit',
+    'django_extensions'
+    
 ]
 
 MIDDLEWARE = [
@@ -82,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'app_online_shop',
-        'USER': 'easy',
+        'USER': 'postgres',
         'PASSWORD':'Ivtel_890',
         'HOST': 'localhost',
         'PORT': 5432,
@@ -147,5 +150,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'marketplaceariv@gmail.com' 
 EMAIL_HOST_PASSWORD = 'sjwp ksik wrqq zfzz' 
 EMAIL_PORT = 587 
-RECAPTCHA_PRIVATE_KEY = '6Ldram0pAAAAAFOopOMdh0oKEh9TmJ6VrCESPFhH'
+RECAPTCHA_PRIVATE_KEY = '6Lel9JMpAAAAAMN7U6yngjkmA6sgz0UYHJCgRJvR'
 RECAPTCHA_PUBLIC_KEY = '6LdAnG0pAAAAAJqfbxaAzQr_5ysPjgKX4zC9W-lB'
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+MAX_IMAGE_UPLOAD_SIZE = 4 * 1024 * 1024  # 4 MB

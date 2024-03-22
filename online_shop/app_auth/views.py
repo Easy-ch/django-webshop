@@ -1,4 +1,4 @@
-from .forms import  RegisterForm,EmailAuthenticationForm,ProfileForm
+from .forms import  RegisterForm,EmailAuthenticationForm,ProfileForm,PasswordResetFormCustom,CustomChangePasswordForm
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -6,15 +6,18 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect 
 from django.contrib.auth import login,get_user_model,logout
 from django.contrib.sites.shortcuts import get_current_site 
-from django.utils.encoding import force_bytes, force_str 
+from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode 
 from django.template.loader import render_to_string 
 from .token import account_activation_token 
 from django.core.mail import EmailMessage 
 import threading
+from django.views.generic import TemplateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordResetView
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import SetPasswordForm 
 from .models import User
-from django.db import IntegrityError
-from django import forms
 # Create your views here.
 
 # Создаем отображение пользователя
@@ -108,28 +111,63 @@ def captcha_login(request):
         form = EmailAuthenticationForm(request.POST)
         if form.is_valid():
             return redirect(redirect_url) 
+        else:
+            return HttpResponse("OOPS! Bot suspected.")  
     else:
         form = EmailAuthenticationForm()
     return render(request, 'app_auth/login.html', {'form': form})
 
-# def captcha_register(request):
-#     redirect_url = reverse('profile')
-#     if request.method == 'POST':
-#         form = RegisterForm(request.POST)
-#         if form.captcha.is_valid():
-#             return redirect(redirect_url)
-#         else:
-#             return HttpResponse('Капча неверна!')
-#     else:
-#         form = EmailAuthenticationForm()
-#     return render(request, 'app_auth/login.html', {'form': form})
-
-
+def recaptcha_register(request):
+    redirect_url = reverse('profile')
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            return redirect(redirect_url)
+        else: 
+            return HttpResponse("OOPS! Bot suspected.")  
+    else:
+        form = RegisterForm()
+    return (request, 'app_auth/register.html', {'form': form})
 
 # Создаем выход из профиля
 def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
 
+class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'app_auth/password_reset.html'
+    success_url = reverse_lazy('password_reset_done')
+    email_template_name = 'app_auth/password_reset_email.html'
+    form_class = PasswordResetFormCustom
+    success_message = "Instructions for resetting your password have been sent to your email."
+    
+    def form_valid(self,form):
+        print('ААААААААААААААААААААААААААААААААААААААА')
+        email = form.cleaned_data.get('email')
+        if email:
+            self.request.session['email'] = form.cleaned_data['email']
+        return super().form_valid(form)
 
+class CustomPasswordResetDoneView(SuccessMessageMixin, TemplateView):
+    template_name = 'app_auth/password_reset_done.html'
+    success_message = "Instructions for resetting your password have been sent to your email."
+    success_url = reverse_lazy('password_reset_confirm')
+
+class CustomPasswordResetConfirmView(SuccessMessageMixin,FormView):
+    template_name = 'app_auth/password_reset_confirm.html'
+    success_message = "Your password has been reset successfully."
+    form_class = CustomChangePasswordForm
+    success_url = reverse_lazy('login')
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['email'] = self.request.session.get('email')
+        return kwargs
+    def form_valid(self,form):
+        if form.is_valid():
+            new_password1 = form.cleaned_data.get('new_password1')
+            email = form.cleaned_data.get('email')
+            user = get_user_model().objects.get(email=email)
+            user.set_password(new_password1)
+            user.save()
+        return super().form_valid(form)
 

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
 Регистрация
 {% endblock %}
@@ -9,10 +10,6 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'main-page'%}">
         <span style="font-weight: bold;">Главная</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
       </a>
     </li>
       {% if user.is_authenticated %}
@@ -125,11 +122,12 @@
       </div>
       <div class="row mb-3">
         <div class="col">
-            <div class="offset-4 w-25">
-                {{form.captcha}}
-            </div>
-        </div>
+          <div class="col-sm-4 offset-4 w-25">
+        <div class="g-recaptcha" data-sitekey="6Lel9JMpAAAAAJnDFE_25XkIkqON8rbI7KSJZFLE" ></div>
+      </div>
     </div>
+  </div>
+
       <div class="row mb-3 offset-sm-5">
         <div class="col">
           <button type="submit" class="btn btn-success">Принять</button>

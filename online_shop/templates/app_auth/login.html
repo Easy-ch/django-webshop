@@ -14,10 +14,6 @@
         <span style="font-weight: bold;">Главная</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
-      </a>
-    </li>
     {% if user.is_authenticated %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'advertisement-post' %}">
@@ -91,10 +87,14 @@
         <div class="row mb-3">
           <div class="col">
               <div class="offset-4 w-25">
-                  {{form.captcha}}
+                <div class="g-recaptcha" data-sitekey="6Lel9JMpAAAAAJnDFE_25XkIkqON8rbI7KSJZFLE" ></div>
               </div>
           </div>
       </div>
+      <div class="row mb-3">
+        <div class="col">
+            <div class="offset-4 w-25">
+              <div><p><a href="{% url 'password_reset' %}">Я забыл пароль!</div>
 
         <div class="row mb-3 offset-sm-5">
           <div class="col">

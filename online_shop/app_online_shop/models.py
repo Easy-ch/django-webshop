@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.html import format_html
 from django.contrib import admin
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 # Create your models here.
 User = get_user_model()
 class OnlineShop(models.Model): 
@@ -11,8 +13,8 @@ class OnlineShop(models.Model):
     auction = models.BooleanField('Торг',help_text='Отметьте, уместен ли торг')
     created_time = models.DateTimeField(auto_now_add=True,verbose_name='Создан')
     update_time = models.DateTimeField(auto_now=True,verbose_name='Обновлен')
-    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE,blank=True) ################################################# текущий user #################################
-    image = models.ImageField('Изображение',upload_to='online_shop/',blank=True)
+    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE,blank=True)
+    image = ProcessedImageField(upload_to='online_shop/', processors=[ResizeToFill(1600, 900)],format='JPEG',options={'quality': 60},default=None)
 
     @admin.display(description='фото')
     def get_html_image(self):
