@@ -14,7 +14,7 @@
  База данных: PostgreSql
  Капча: https://www.google.com/recaptcha/about/
 #### Установка 
-1. Клонируйте репозиторий git clone https://github.com/Easy-ch/project.git
+1. Клонируйте репозиторий git clone https://github.com/Easy-ch/portfolio.git
 2. Установите необходимые библиотеки pip install -r requirements.txt
 3. Установите pgAdmin и создайте базу данных
 4. Установите подключение к базе данных в файле settings.py
