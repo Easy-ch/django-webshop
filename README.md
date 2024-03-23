@@ -9,10 +9,10 @@
 - Админ-панель
 - Профиль с возможностью установки аватара и смены данных
 #### Используемые технологии
- Фронтенд: HTML,CSS,JS (bootstrap)
- Бэкэнд: python (Django)
- База данных: PostgreSql
- Капча: https://www.google.com/recaptcha/about/
+ - Фронтенд: HTML,CSS,JS (bootstrap)
+ - Бэкэнд: python (Django)
+ - База данных: PostgreSql
+ - Капча: https://www.google.com/recaptcha/about/
 #### Установка 
 1. Клонируйте репозиторий git clone https://github.com/Easy-ch/portfolio.git
 2. Установите необходимые библиотеки pip install -r requirements.txt
