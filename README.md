@@ -10,7 +10,7 @@
 - Профиль с возможностью установки аватара и смены данных
 #### Используемые технологии
  - Фронтенд: HTML,CSS,JS (bootstrap)
- - Бэкэнд: python (Django)
+ - Бэкэнд: python 3.10.11 (Django)
  - База данных: PostgreSql
  - Капча: https://www.google.com/recaptcha/about/
 #### Установка 
