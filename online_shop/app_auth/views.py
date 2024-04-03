@@ -134,7 +134,7 @@ class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
     success_message = "Instructions for resetting your password have been sent to your email."
     
     def form_valid(self,form):
-        print('ААААААААААААААААААААААААААААААААААААААА')
+        
         email = form.cleaned_data.get('email')
         if email:
             self.request.session['email'] = form.cleaned_data['email']
